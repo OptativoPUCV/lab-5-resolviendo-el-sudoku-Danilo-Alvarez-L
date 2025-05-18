@@ -43,8 +43,78 @@ void print_node(Node* n){
     printf("\n");
 }
 
-int is_valid(Node* n){
+int is_valid(Node* n)
+{
+  int numeros_usados[10]; //para no repetir numeros
+  //validamso las filas
+  for (int fila = 0 ; fila < 9 ; fila++)
+  {
+    for (int i = 0 ; i < 10 ; i++)
+    {
+      numeros_usados[i] = 0;
+    }
 
+    for (int columna = 0 ; columna < 9 ; columna++)
+    {
+      int num = n->sudo[fila][columna];
+      if (num != 0)
+      {
+        if (numeros_usados[num])
+        {
+          return 0;
+        }
+        numeros_usados[num] = 1;
+      }
+    }
+  }
+
+  //validamos las columnas
+
+  for (int columna = 0 ; columna < 9 ; columna++)
+  {
+    for (int i = 0 ; i < 10 ; i++)
+    {
+      numeros_usados[i] = 0;
+    }
+
+    for (int fila = 0 ; fila < 9 ; fila++)
+    {
+      int num = n->sudo[fila][columna];
+      if (num != 0)
+      {
+        if (numeros_usados[num])
+        {
+          return 0;
+        }
+        numeros_usados[num] = 1;
+      }
+    }
+  }
+
+  //validar matrices 3x3
+
+  for (int matriz = 0 ; matriz < 9 ; matriz++)
+  {
+    for (int i = 0 ; i < 10 ; i++)
+    {
+      numeros_usados[i] = 0;
+    }
+
+  for (int celda = 0 ; celda < 9 ; celda++)
+  {
+    int fila = 3 * (matriz / 3) + (celda / 3);
+    int columna = 3 * (matriz % 3) + (celda % 3);
+    int num = n->sudo[fila][columna];
+    if (num != 0)
+    {
+      if (numeros_usados[num])
+      {
+        return 0;
+      }
+      numeros_usados[num] = 1;
+    }
+  }
+  }
     return 1;
 }
 
