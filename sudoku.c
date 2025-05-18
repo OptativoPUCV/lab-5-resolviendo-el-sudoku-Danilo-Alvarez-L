@@ -133,7 +133,16 @@ List* get_adj_nodes(Node* n)
           {
             Node * nuevoNodo = copy(n);
             nuevoNodo->sudo[fila][columna] = num;
-            pushBack(list, nuevoNodo);
+            
+            if (is_valid(nuevoNodo))
+            {
+              pushBack(list, nuevoNodo);
+            }
+            else
+            {
+              free(nuevoNodo);
+            }
+          
           }
           return list;
         }
